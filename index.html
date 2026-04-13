@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Midnite Codeworks – Premium software development. Code that never sleeps.">
+    <title>Midnite Codeworks | Code That Never Sleeps</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Space+Grotesk:wght@500;600&amp;display=swap');
+        
+        :root {
+            --neon-cyan: #00f7ff;
+            --neon-magenta: #ff00cc;
+            --neon-purple: #9d4edd;
+        }
+        
+        * {
+            font-family: 'Inter', system-ui, sans-serif;
+        }
+        
+        .logo-font {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+        
+        .neon-cyan {
+            text-shadow: 
+                0 0 10px var(--neon-cyan),
+                0 0 20px var(--neon-cyan),
+                0 0 40px var(--neon-cyan);
+        }
+        
+        .neon-magenta {
+            text-shadow: 
+                0 0 10px var(--neon-magenta),
+                0 0 20px var(--neon-magenta);
+        }
+        
+        .card-hover {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-6px) scale(1.02);
+            box-shadow: 0 25px 50px -12px rgb(0 247 255 / 0.2);
+        }
+        
+        .section-header::after {
+            content: '';
+            position: absolute;
+            width: 64px;
+            height: 3px;
+            background: linear-gradient(to right, #00f7ff, #ff00cc);
+            bottom: -10px;
+            left: 0;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        .hero-canvas {
+            filter: brightness(1.1) contrast(1.2);
+        }
+    </style>
+</head>
+<body class="bg-[#05040f] text-white">
+    <!-- NAVIGATION -->
+    <nav class="sticky top-0 z-50 bg-[#05040f]/95 backdrop-blur-xl border-b border-white/10">
+        <div class="max-w-screen-2xl mx-auto px-8 py-5 flex items-center justify-between">
+            <!-- Logo -->
+            <div class="flex items-center gap-x-3">
+                <div class="relative">
+                    <div class="w-9 h-9 bg-gradient-to-br from-[#00f7ff] via-[#ff00cc] to-[#9d4edd] rounded-2xl flex items-center justify-center text-black font-black text-3xl rotate-12 shadow-lg shadow-[#00f7ff]/50">M</div>
+                </div>
+                <div class="logo-font text-4xl tracking-[-3px] font-semibold neon-cyan">MIDNITE</div>
+                <div class="logo-font text-4xl tracking-[-3px] font-semibold text-white/90">CODEWORKS</div>
+            </div>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex items-center gap-x-10 text-sm uppercase font-medium tracking-widest">
+                <a href="#services" class="hover:text-[#00f7ff] transition-colors">Services</a>
+                <a href="#work" class="hover:text-[#00f7ff] transition-colors">Work</a>
+                <a href="#about" class="hover:text-[#00f7ff] transition-colors">About</a>
+                <a href="#why" class="hover:text-[#00f7ff] transition-colors">Why Midnite</a>
+                <a href="#testimonials" class="hover:text-[#00f7ff] transition-colors">Testimonials</a>
+            </div>
+
+            <div class="flex items-center gap-x-6">
+                <button onclick="startProject()" 
+                        class="hidden sm:flex px-8 py-3.5 bg-white text-[#05040f] rounded-3xl font-semibold text-sm uppercase tracking-widest items-center gap-x-3 hover:bg-[#00f7ff] hover:text-black transition-all">
+                    <i class="fa-solid fa-rocket"></i>
+                    START PROJECT
+                </button>
+                
+                <!-- Mobile Hamburger -->
+                <button onclick="toggleMobileMenu()" class="md:hidden text-3xl text-[#00f7ff]">
+                    <i class="fa-solid fa-bars" id="hamburger-icon"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-[#05040f] border-t border-white/10 px-8 py-8">
+            <div class="flex flex-col gap-y-8 text-lg font-medium">
+                <a href="#services" onclick="toggleMobileMenu()" class="hover:text-[#00f7ff]">Services</a>
+                <a href="#work" onclick="toggleMobileMenu()" class="hover:text-[#00f7ff]">Work</a>
+                <a href="#about" onclick="toggleMobileMenu()" class="hover:text-[#00f7ff]">About</a>
+                <a href="#why" onclick="toggleMobileMenu()" class="hover:text-[#00f7ff]">Why Midnite</a>
+                <a href="#testimonials" onclick="toggleMobileMenu()" class="hover:text-[#00f7ff]">Testimonials</a>
+                <a href="#contact" onclick="toggleMobileMenu()" class="hover:text-[#00f7ff]">Contact</a>
+                <button onclick="startProject();toggleMobileMenu()" 
+                        class="mt-4 w-full py-6 bg-gradient-to-r from-[#00f7ff] to-[#ff00cc] text-black font-bold rounded-3xl text-lg">
+                    START A PROJECT
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <header class="relative min-h-screen flex items-center justify-center overflow-hidden">
+        <!-- Canvas: slow-moving code rain / constellation particles -->
+        <canvas id="hero-canvas" class="hero-canvas absolute inset-0 z-0"></canvas>
+        
+        <!-- Gradient overlay -->
+        <div class="absolute inset-0 bg-gradient-to-b from-[#05040f]/60 via-[#05040f]/30 to-[#05040f]/90 z-10"></div>
+
+        <div class="relative z-20 max-w-screen-2xl mx-auto px-8 text-center pt-16">
+            <div class="inline-flex items-center rounded-3xl bg-white/10 backdrop-blur-3xl px-8 py-3 border border-white/10 mb-10">
+                <span class="relative flex h-3 w-3">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#00f7ff] opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-3 w-3 bg-[#00f7ff]"></span>
+                </span>
+                <span class="ml-3 text-sm uppercase tracking-[2px] font-medium">Born after midnight • Delivered at dawn</span>
+            </div>
+            
+            <h1 class="text-7xl md:text-[92px] leading-none font-semibold logo-font tracking-[-6px] neon-cyan">
+                CODE THAT<br>NEVER SLEEPS
+            </h1>
+            
+            <p class="max-w-2xl mx-auto text-2xl md:text-3xl text-white/70 mt-8 mb-12">
+                We build exceptional software solutions when others are offline.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
+                <button onclick="startProject()" 
+                        class="px-12 py-7 text-2xl font-semibold bg-gradient-to-r from-[#00f7ff] to-[#ff00cc] text-black rounded-3xl flex items-center gap-x-4 hover:scale-105 transition-all shadow-2xl shadow-[#00f7ff]/40">
+                    START A PROJECT
+                    <i class="fa-solid fa-arrow-right text-xl"></i>
+                </button>
+                
+                <button onclick="document.getElementById('work').scrollIntoView({behavior:'smooth'})" 
+                        class="px-12 py-7 text-2xl font-medium border-2 border-white/30 hover:border-[#00f7ff] rounded-3xl transition-colors">
+                    SEE OUR WORK
+                </button>
+            </div>
+            
+            <!-- Trust signals -->
+            <div class="mt-24">
+                <p class="uppercase text-xs tracking-[3px] text-white/40 mb-8">Trusted by ambitious teams at</p>
+                <div class="flex flex-wrap justify-center items-center gap-x-12 gap-y-8 opacity-75">
+                    <div class="text-3xl font-light logo-font">ARCANE</div>
+                    <div class="text-3xl font-light logo-font">NEONFORGE</div>
+                    <div class="text-3xl font-light logo-font">VOID AI</div>
+                    <div class="text-3xl font-light logo-font">LUNAR LABS</div>
+                    <div class="text-3xl font-light logo-font">PHANTOM</div>
+                </div>
+            </div>
+            
+            <!-- Scroll cue -->
+            <div class="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center text-[#00f7ff] text-xs tracking-[4px]">
+                SCROLL FOR MIDNIGHT
+                <i class="fa-solid fa-chevron-down mt-4 text-2xl animate-bounce"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- ABOUT US -->
+    <section id="about" class="py-28 bg-[#0a0820]">
+        <div class="max-w-screen-2xl mx-auto px-8">
+            <div class="grid md:grid-cols-12 gap-20 items-center">
+                <div class="md:col-span-7">
+                    <span class="text-[#00f7ff] uppercase text-sm font-medium tracking-widest">THE MIDNIGHT ORIGIN STORY</span>
+                    <h2 class="text-5xl md:text-6xl font-semibold logo-font leading-tight mt-4 mb-10">Forged in late-night sessions.<br>Delivered before sunrise.</h2>
+                    <div class="max-w-xl text-xl text-white/80 leading-relaxed">
+                        Midnite Codeworks was born from those rare hours when the world goes quiet and the best code flows. 
+                        We obsess over clean, scalable, production-ready solutions. No shortcuts. No surprises. Just premium software that ships fast and scales forever.
+                    </div>
+                    
+                    <div class="flex gap-12 mt-16">
+                        <div>
+                            <div class="text-6xl font-semibold neon-magenta">∞</div>
+                            <p class="uppercase text-sm tracking-widest text-white/60">Zero downtime philosophy</p>
+                        </div>
+                        <div>
+                            <div class="text-6xl font-semibold neon-cyan">24/7</div>
+                            <p class="uppercase text-sm tracking-widest text-white/60">Development cycles</p>
+                        </div>
+                        <div>
+                            <div class="text-6xl font-semibold text-white">100<span class="text-4xl">%</span></div>
+                            <p class="uppercase text-sm tracking-widest text-white/60">Client retention</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Visual accent -->
+                <div class="md:col-span-5">
+                    <div class="rounded-3xl bg-gradient-to-br from-[#1a1633] to-[#111033] border border-white/10 p-12 text-center aspect-video flex items-center justify-center relative overflow-hidden">
+                        <div class="text-8xl font-mono text-[#00f7ff]/10 tracking-[12px] leading-none">01 10 11 00<br>CODE•NEVER•SLEEPS</div>
+                        <div class="absolute inset-0 bg-[radial-gradient(#ff00cc_1px,transparent_1px)] bg-[length:50px_50px] opacity-5"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section id="services" class="py-28">
+        <div class="max-w-screen-2xl mx-auto px-8">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-16">
+                <div>
+                    <span class="text-[#00f7ff] uppercase tracking-widest text-sm">SERVICES</span>
+                    <h2 class="text-5xl font-semibold logo-font">What we build in the dark</h2>
+                </div>
+                <p class="max-w-xs text-white/60 mt-4 md:mt-0">Premium, production-ready code. Delivered at the speed of midnight.</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="card-hover bg-[#111033] border border-white/5 rounded-3xl p-10 group">
+                    <div class="h-14 w-14 mb-10 bg-gradient-to-br from-[#00f7ff] to-transparent rounded-2xl flex items-center justify-center text-4xl text-black">📱</div>
+                    <h3 class="text-3xl font-semibold mb-4 group-hover:text-[#00f7ff]">Custom Web &amp; Mobile Applications</h3>
+                    <p class="text-white/70">Pixel-perfect, lightning-fast apps built with modern stacks that scale effortlessly.</p>
+                </div>
+                
+                <div class="card-hover bg-[#111033] border border-white/5 rounded-3xl p-10 group">
+                    <div class="h-14 w-14 mb-10 bg-gradient-to-br from-[#ff00cc] to-transparent rounded-2xl flex items-center justify-center text-4xl text-black">🤖</div>
+                    <h3 class="text-3xl font-semibold mb-4 group-hover:text-[#ff00cc]">AI &amp; Machine Learning Solutions</h3>
+                    <p class="text-white/70">Custom intelligent systems, LLMs, and automation that deliver measurable ROI.</p>
+                </div>
+                
+                <div class="card-hover bg-[#111033] border border-white/5 rounded-3xl p-10 group">
+                    <div class="h-14 w-14 mb-10 bg-gradient-to-br from-[#9d4edd] to-transparent rounded-2xl flex items-center justify-center text-4xl text-black">🔌</div>
+                    <h3 class="text-3xl font-semibold mb-4 group-hover:text-[#9d4edd]">Backend Systems &amp; API Development</h3>
+                    <p class="text-white/70">High-performance, secure backends and APIs that power tomorrow’s platforms.</p>
+                </div>
+                
+                <div class="card-hover bg-[#111033] border border-white/5 rounded-3xl p-10 group">
+                    <div class="h-14 w-14 mb-10 bg-gradient-to-br from-[#00f7ff] to-transparent rounded-2xl flex items-center justify-center text-4xl text-black">🔍</div>
+                    <h3 class="text-3xl font-semibold mb-4 group-hover:text-[#00f7ff]">Code Audits, Optimization &amp; Legacy Modernization</h3>
+                    <p class="text-white/70">Revive, refactor, and future-proof existing codebases with surgical precision.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURED WORK / PORTFOLIO -->
+    <section id="work" class="py-28 bg-[#0a0820]">
+        <div class="max-w-screen-2xl mx-auto px-8">
+            <h2 class="text-5xl font-semibold logo-font mb-4">Featured Midnight Builds</h2>
+            <p class="text-white/60 mb-16">Real projects. Real impact. Shipped while the competition slept.</p>
+            
+            <div class="grid lg:grid-cols-3 gap-8">
+                <!-- Portfolio 1 -->
+                <div class="group rounded-3xl overflow-hidden border border-white/10 bg-[#111033]">
+                    <div class="h-80 bg-gradient-to-br from-[#1a1633] to-[#0a0820] flex items-center justify-center relative">
+                        <div class="text-[180px] font-black text-white/5 group-hover:text-[#00f7ff]/10 transition-colors">01</div>
+                        <div class="absolute bottom-8 left-8 right-8 bg-black/70 backdrop-blur-xl p-6 rounded-3xl">
+                            <div class="uppercase text-[#ff00cc] text-xs tracking-widest mb-2">AI Platform • 2025</div>
+                            <h4 class="text-3xl font-semibold">Echo — Real-time collaborative intelligence</h4>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Portfolio 2 -->
+                <div class="group rounded-3xl overflow-hidden border border-white/10 bg-[#111033]">
+                    <div class="h-80 bg-gradient-to-br from-[#1a1633] to-[#0a0820] flex items-center justify-center relative">
+                        <div class="text-[180px] font-black text-white/5 group-hover:text-[#ff00cc]/10 transition-colors">10</div>
+                        <div class="absolute bottom-8 left-8 right-8 bg-black/70 backdrop-blur-xl p-6 rounded-3xl">
+                            <div class="uppercase text-[#00f7ff] text-xs tracking-widest mb-2">Fintech • 2025</div>
+                            <h4 class="text-3xl font-semibold">VoidPay — Instant global settlements</h4>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Portfolio 3 -->
+                <div class="group rounded-3xl overflow-hidden border border-white/10 bg-[#111033]">
+                    <div class="h-80 bg-gradient-to-br from-[#1a1633] to-[#0a0820] flex items-center justify-center relative">
+                        <div class="text-[180px] font-black text-white/5 group-hover:text-[#9d4edd]/10 transition-colors">11</div>
+                        <div class="absolute bottom-8 left-8 right-8 bg-black/70 backdrop-blur-xl p-6 rounded-3xl">
+                            <div class="uppercase text-[#9d4edd] text-xs tracking-widest mb-2">Enterprise • 2024</div>
+                            <h4 class="text-3xl font-semibold">ShadowFleet — Autonomous logistics OS</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- WHY MIDNITE -->
+    <section id="why" class="py-28">
+        <div class="max-w-screen-2xl mx-auto px-8">
+            <div class="text-center mb-20">
+                <h2 class="text-5xl font-semibold logo-font">Why the sharpest founders choose Midnite</h2>
+            </div>
+            
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="text-center">
+                    <div class="mx-auto mb-6 w-20 h-20 rounded-3xl bg-[#ff00cc]/10 flex items-center justify-center text-5xl">🌙</div>
+                    <h4 class="font-semibold text-2xl mb-3">24/7 development cycles</h4>
+                    <p class="text-white/70">Global team working around the clock so your project never loses momentum.</p>
+                </div>
+                <div class="text-center">
+                    <div class="mx-auto mb-6 w-20 h-20 rounded-3xl bg-[#00f7ff]/10 flex items-center justify-center text-5xl">🔥</div>
+                    <h4 class="font-semibold text-2xl mb-3">Obsessive code quality</h4>
+                    <p class="text-white/70">Every line reviewed, tested, and documented to enterprise standards.</p>
+                </div>
+                <div class="text-center">
+                    <div class="mx-auto mb-6 w-20 h-20 rounded-3xl bg-[#9d4edd]/10 flex items-center justify-center text-5xl">⚡</div>
+                    <h4 class="font-semibold text-2xl mb-3">Blazing-fast delivery</h4>
+                    <p class="text-white/70">From idea to production in weeks — not quarters.</p>
+                </div>
+                <div class="text-center">
+                    <div class="mx-auto mb-6 w-20 h-20 rounded-3xl bg-[#00f7ff]/10 flex items-center justify-center text-5xl">📐</div>
+                    <h4 class="font-semibold text-2xl mb-3">Transparent pricing</h4>
+                    <p class="text-white/70">Fixed milestones. No surprises. Complete visibility at every step.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section id="testimonials" class="py-28 bg-[#0a0820]">
+        <div class="max-w-screen-2xl mx-auto px-8">
+            <h2 class="text-5xl font-semibold logo-font text-center mb-16">Voices from the night shift</h2>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-[#111033] rounded-3xl p-10">
+                    <p class="italic text-xl leading-relaxed">"They shipped our entire AI infrastructure in 19 days. The code was flawless and the architecture is bulletproof. True midnight magic."</p>
+                    <div class="mt-10 flex items-center gap-x-4">
+                        <div class="h-11 w-11 bg-gradient-to-br from-[#ff00cc] to-[#00f7ff] rounded-2xl"></div>
+                        <div>
+                            <div class="font-semibold">Elena Voss</div>
+                            <div class="text-white/60 text-sm">CEO, Helix Labs</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-[#111033] rounded-3xl p-10">
+                    <p class="italic text-xl leading-relaxed">"Midnite didn’t just build our platform — they became an extension of our team. Obsessive quality and zero downtime. Exactly what we needed."</p>
+                    <div class="mt-10 flex items-center gap-x-4">
+                        <div class="h-11 w-11 bg-gradient-to-br from-[#00f7ff] to-[#9d4edd] rounded-2xl"></div>
+                        <div>
+                            <div class="font-semibold">Marcus Rivera</div>
+                            <div class="text-white/60 text-sm">Founder, Pulse Dynamics</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-[#111033] rounded-3xl p-10">
+                    <p class="italic text-xl leading-relaxed">"Fastest, most professional dev partner we’ve ever worked with. They understood our vision instantly and delivered better than we imagined."</p>
+                    <div class="mt-10 flex items-center gap-x-4">
+                        <div class="h-11 w-11 bg-gradient-to-br from-[#9d4edd] to-[#ff00cc] rounded-2xl"></div>
+                        <div>
+                            <div class="font-semibold">Sarah Chen</div>
+                            <div class="text-white/60 text-sm">CTO, Nebula Ventures</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT / GET IN TOUCH -->
+    <section id="contact" class="py-28 border-t border-white/10">
+        <div class="max-w-screen-2xl mx-auto px-8">
+            <div class="grid md:grid-cols-12 gap-20">
+                <div class="md:col-span-5">
+                    <h2 class="text-5xl font-semibold logo-font leading-none">Ready to build at midnight?</h2>
+                    <p class="mt-8 text-xl text-white/70">Book a 15-minute discovery call or drop us a line. Our team responds within the hour — even at 3am.</p>
+                    
+                    <div class="mt-16">
+                        <a href="#" onclick="fakeCalendly()" 
+                           class="inline-flex items-center gap-x-4 bg-white/5 hover:bg-white/10 border border-white/20 rounded-3xl px-8 py-6 text-xl font-medium">
+                            <i class="fa-solid fa-calendar text-[#00f7ff]"></i>
+                            <span>Book a 15-minute call</span>
+                        </a>
+                    </div>
+                    
+                    <div class="mt-12 text-white/60">
+                        Or email us directly at<br>
+                        <a href="mailto:hello@midnitecodeworks.com" class="text-[#00f7ff] hover:underline">hello@midnitecodeworks.com</a>
+                    </div>
+                </div>
+                
+                <!-- Contact Form -->
+                <div class="md:col-span-7 bg-[#111033] rounded-3xl p-10 md:p-14">
+                    <form onsubmit="handleSubmit(event)" class="space-y-8">
+                        <div class="grid grid-cols-2 gap-8">
+                            <div>
+                                <label class="block text-sm uppercase tracking-widest text-white/60 mb-3">Your name</label>
+                                <input type="text" id="name" required 
+                                       class="w-full bg-white/5 border border-white/10 focus:border-[#00f7ff] rounded-3xl px-8 py-6 outline-none text-lg">
+                            </div>
+                            <div>
+                                <label class="block text-sm uppercase tracking-widest text-white/60 mb-3">Company / Project</label>
+                                <input type="text" id="company" 
+                                       class="w-full bg-white/5 border border-white/10 focus:border-[#00f7ff] rounded-3xl px-8 py-6 outline-none text-lg">
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm uppercase tracking-widest text-white/60 mb-3">Email address</label>
+                            <input type="email" id="email" required 
+                                   class="w-full bg-white/5 border border-white/10 focus:border-[#00f7ff] rounded-3xl px-8 py-6 outline-none text-lg">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm uppercase tracking-widest text-white/60 mb-3">Tell us about your project</label>
+                            <textarea id="message" rows="6" required 
+                                      class="w-full bg-white/5 border border-white/10 focus:border-[#00f7ff] rounded-3xl px-8 py-6 outline-none text-lg resize-none"></textarea>
+                        </div>
+                        
+                        <button type="submit" 
+                                class="w-full py-7 bg-gradient-to-r from-[#00f7ff] to-[#ff00cc] text-black font-bold text-xl rounded-3xl hover:brightness-110 transition-all">
+                            SEND TO MIDNITE
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-black py-16 border-t border-white/10">
+        <div class="max-w-screen-2xl mx-auto px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-y-8">
+                <div class="flex items-center gap-x-3">
+                    <div class="logo-font text-3xl neon-cyan">MIDNITE CODEWORKS</div>
+                </div>
+                
+                <div class="text-white/40 text-sm flex flex-wrap justify-center gap-x-8">
+                    <a href="#" class="hover:text-white">Privacy Policy</a>
+                    <a href="#" class="hover:text-white">Terms of Service</a>
+                    <span>© 2026 Midnite Codeworks. All rights reserved.</span>
+                </div>
+                
+                <div class="flex gap-x-6 text-2xl text-white/40">
+                    <i class="fa-brands fa-x-twitter hover:text-[#00f7ff] cursor-pointer"></i>
+                    <i class="fa-brands fa-linkedin hover:text-[#00f7ff] cursor-pointer"></i>
+                    <i class="fa-brands fa-github hover:text-[#00f7ff] cursor-pointer"></i>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Tailwind configuration
+        function initTailwind() {
+            return {
+                config(userConfig = {}) {
+                    return {
+                        content: [],
+                        theme: {
+                            extend: {
+                                colors: {
+                                    neonCyan: '#00f7ff',
+                                    neonMagenta: '#ff00cc'
+                                }
+                            }
+                        }
+                    }
+                },
+                theme: {
+                    extend: {}
+                }
+            }
+        }
+        
+        // Canvas code rain / constellation effect
+        function initHeroCanvas() {
+            const canvas = document.getElementById('hero-canvas')
+            if (!canvas) return
+            const ctx = canvas.getContext('2d')
+            
+            let width, height
+            const resize = () => {
+                width = canvas.width = window.innerWidth
+                height = canvas.height = window.innerHeight
+            }
+            window.addEventListener('resize', resize)
+            resize()
+            
+            const chars = '01アイウエオABCDEFGHIJKLMNOPQRSTUVWXYZ$@#&%'.split('')
+            const fontSize = 18
+            let columns = Math.floor(width / fontSize)
+            let drops = Array(columns).fill(1)
+            
+            function draw() {
+                ctx.fillStyle = 'rgba(5, 4, 15, 0.12)'
+                ctx.fillRect(0, 0, width, height)
+                
+                ctx.fillStyle = '#00f7ff'
+                ctx.font = `${fontSize}px monospace`
+                
+                for (let i = 0; i < drops.length; i++) {
+                    const text = chars[Math.floor(Math.random() * chars.length)]
+                    ctx.fillText(text, i * fontSize, drops[i] * fontSize)
+                    
+                    // Occasionally reset drop for organic feel
+                    if (drops[i] * fontSize > height && Math.random() > 0.975) {
+                        drops[i] = 0
+                    }
+                    drops[i]++
+                }
+                
+                // Subtle purple glow accents
+                ctx.fillStyle = 'rgba(157, 78, 221, 0.15)'
+                ctx.fillRect(Math.random() * width, Math.random() * height, 3, 3)
+            }
+            
+            setInterval(draw, 42)
+        }
+        
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu')
+            const icon = document.getElementById('hamburger-icon')
+            menu.classList.toggle('hidden')
+            if (icon.classList.contains('fa-bars')) {
+                icon.classList.remove('fa-bars')
+                icon.classList.add('fa-xmark')
+            } else {
+                icon.classList.remove('fa-xmark')
+                icon.classList.add('fa-bars')
+            }
+        }
+        
+        // CTA action
+        function startProject() {
+            document.getElementById('contact').scrollIntoView({ behavior: 'smooth' })
+        }
+        
+        // Fake Calendly click
+        function fakeCalendly() {
+            alert('🎟️ Calendly integration placeholder:\n\nA 15-minute discovery call with a Midnite engineer has been scheduled. Check your email for the link.')
+        }
+        
+        // Form submission handler
+        function handleSubmit(e) {
+            e.preventDefault()
+            const name = document.getElementById('name').value
+            alert(`Thank you, ${name}. A Midnite engineer will respond within the hour. 🌌`)
+            e.target.reset()
+        }
+        
+        // Initialize everything
+        window.addEventListener('load', () => {
+            initTailwind()
+            initHeroCanvas()
+            
+            console.log('%c🚀 Midnite Codeworks website loaded — ready to build at midnight', 'color:#00f7ff;font-family:monospace;font-size:13px')
+        })
+    </script>
+</body>
+</html>
