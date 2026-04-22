@@ -1694,15 +1694,15 @@
           <li><a href="#work">Industries</a></li>
           <li><a href="#team">The Team</a></li>
           <li><a href="#testimonials">How It Works</a></li>
-          <li><a href="#contact">Contact</a></li>
+          <li><a href="mailto:midnitecodeworksllc@gmail.com">Contact</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <h4>Contact</h4>
         <ul>
-          <li><a href="mailto:hello@midnitecodeworks.com">hello@midnitecodeworks.com</a></li>
+          <li><a href="mailto:midnitecodeworksllc@gmail.com">midnitecodeworksllc@gmail.com</a></li>
           <li><a href="#contact">Start a Project</a></li>
-          <li><a href="#contact">Book a Call</a></li>
+          <li><a href="https://cal.com/midnite-codeworks-pzscip" target="_blank" rel="noopener">Book a Call</a></li>
           <li><a href="#contact">Support</a></li>
         </ul>
       </div>
@@ -1886,22 +1886,6 @@
   }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
 
   revealEls.forEach(el => observer.observe(el));
-
-  // ── Form Submission ───────────────────────────
-  function handleSubmit(e) {
-    e.preventDefault();
-    const btn = e.target.querySelector('button[type="submit"]');
-    const orig = btn.innerHTML;
-    btn.innerHTML = '✓ &nbsp;Message Sent!';
-    btn.style.background = 'linear-gradient(135deg, #28c840, #00a86b)';
-    btn.disabled = true;
-    setTimeout(() => {
-      btn.innerHTML = orig;
-      btn.style.background = '';
-      btn.disabled = false;
-      e.target.reset();
-    }, 3500);
-  }
 
   // ── Smooth anchor offset (for sticky nav) ─────
   document.querySelectorAll('a[href^="#"]').forEach(link => {
