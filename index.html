@@ -1083,10 +1083,120 @@
     .footer-legal a { font-size: 0.8rem; color: var(--muted); transition: color 0.2s; }
     .footer-legal a:hover { color: var(--cyan); }
 
+    /* ── Service Tiers ─────────────────────────────── */
+    .services-tier { margin-bottom: 48px; }
+    .services-tier-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+    .services-tier-title {
+      font-family: var(--font-display);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      color: var(--cyan);
+    }
+    .dev-tier .services-tier-title { color: #7b97ff; }
+    .services-tier-line { flex: 1; height: 1px; background: var(--border); }
+
+    .services-grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+
+    /* ── Audit CTA Block ──────────────────────────── */
+    .audit-cta-block {
+      margin: 0 0 48px;
+      background: linear-gradient(135deg, rgba(0,245,255,0.03) 0%, rgba(157,78,221,0.03) 50%, rgba(247,37,133,0.03) 100%);
+      border: 1px solid rgba(100,120,255,0.25);
+      border-radius: 16px;
+      padding: 48px;
+      position: relative;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: start;
+    }
+    .audit-cta-block::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--cyan), var(--purple), var(--magenta), var(--blue));
+    }
+    .audit-cta-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      margin-bottom: 16px;
+    }
+    .audit-cta-eyebrow .dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--cyan);
+      box-shadow: var(--glow-cyan);
+      animation: glowPulse 2s ease-in-out infinite;
+      flex-shrink: 0;
+    }
+    .audit-cta-block h3 {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 12px;
+    }
+    .audit-cta-block p {
+      font-size: 0.95rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+    .audit-cta-checklist {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+    .audit-cta-checklist li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+    .audit-cta-checklist li::before {
+      content: '✓';
+      color: var(--cyan);
+      font-weight: 700;
+      font-size: 0.85rem;
+      flex-shrink: 0;
+    }
+    .audit-cta-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+
+    /* ── nth-child(5) service card ────────────────── */
+    .service-card:nth-child(5)::after { box-shadow: inset 0 0 0 1px var(--purple); }
+    .service-card:nth-child(5):hover { box-shadow: 0 20px 60px rgba(157,78,221,0.1); }
+    .service-card:nth-child(5) .service-icon { background: rgba(157,78,221,0.1); box-shadow: 0 0 20px rgba(157,78,221,0.15); }
+    .service-card:nth-child(5) .service-tag { background: rgba(157,78,221,0.12); color: var(--purple); }
+
     /* ── Responsive ────────────────────────────────── */
     @media (max-width: 1024px) {
       .about-grid { grid-template-columns: 1fr; gap: 48px; }
       .services-grid { grid-template-columns: 1fr 1fr; }
+      .services-grid-2 { grid-template-columns: 1fr 1fr; }
+      .audit-cta-block { grid-template-columns: 1fr; gap: 32px; }
       .portfolio-grid { grid-template-columns: repeat(2, 1fr); }
       .team-grid { grid-template-columns: repeat(2, 1fr); }
       .footer-top { grid-template-columns: 1fr 1fr; gap: 32px; }
@@ -1099,6 +1209,8 @@
       .nav-hamburger { display: flex; }
       .hero-title { letter-spacing: -0.01em; }
       .services-grid { grid-template-columns: 1fr; }
+      .services-grid-2 { grid-template-columns: 1fr; }
+      .audit-cta-block { padding: 32px 24px; }
       .portfolio-grid { grid-template-columns: 1fr; }
       .process-timeline { grid-template-columns: repeat(2, 1fr); gap: 32px; }
       .process-timeline::before { display: none; }
@@ -1168,7 +1280,7 @@
         <span class="gradient-text">For Your Business.</span>
       </h1>
       <p class="hero-subtitle">
-        Enterprise-grade AI — custom-built for small businesses. Automate repetitive work, respond to clients faster, and compete with companies ten times your size.
+        Enterprise-grade AI and custom software — built for small businesses. Automate repetitive work, modernize your tech stack, and compete with companies ten times your size.
       </p>
       <div class="hero-buttons">
         <a href="#contact" class="btn btn-primary">
@@ -1233,12 +1345,12 @@
       </div>
       <div class="about-text reveal reveal-delay-2">
         <span class="section-label">Our Story</span>
-        <h2 class="section-title">Enterprise AI.<br /><span class="gradient-text">SMB price tag.</span></h2>
+        <h2 class="section-title">Enterprise-grade.<br /><span class="gradient-text">SMB price tag.</span></h2>
         <p class="section-subtitle">
           Midnite Codeworks was built for the business owner who knows AI could change everything — but doesn't have a $100K consulting budget or an in-house tech team.
         </p>
         <p style="color:var(--muted); margin-top:20px; line-height:1.8; font-size:0.95rem;">
-          We specialize exclusively in cloud-based AI for small and medium-sized businesses: custom AI agents, private LLM deployments, workflow automation, and hands-on data training. Everything we build is designed to save you time, reduce errors, and generate measurable ROI — not just look impressive in a demo.
+          We specialize in cloud-based AI and custom software development for small and medium-sized businesses: autonomous AI agents, custom web and mobile apps, workflow automation, and hands-on data training. Everything we build is designed to save you time, reduce errors, and generate measurable ROI — not just look impressive in a demo.
         </p>
         <p style="color:var(--muted); margin-top:16px; line-height:1.8; font-size:0.95rem;">
           Privacy is non-negotiable. Your business data never trains OpenAI's models or any public system. We build and host privately — critical for healthcare, legal, and financial clients operating under strict compliance requirements.
@@ -1259,74 +1371,140 @@
   <div class="container">
     <div class="services-header reveal">
       <span class="section-label">Services</span>
-      <h2 class="section-title">AI that runs your<br /><span class="gradient-text">business while you sleep.</span></h2>
-      <p class="section-subtitle" style="margin:0 auto;">Every service is designed around one question: how many hours does this save you per week?</p>
+      <h2 class="section-title">Everything your business<br /><span class="gradient-text">needs to grow.</span></h2>
+      <p class="section-subtitle" style="margin:0 auto;">From AI automation to custom software — every service is built around one question: how much time does this save you per week?</p>
     </div>
-    <div class="services-grid">
-      <div class="service-card reveal">
-        <div class="service-icon">🤖</div>
-        <h3>Agentic AI Deployment</h3>
-        <p>Autonomous AI agents that handle real business tasks — scheduling, lead follow-up, client intake, and report generation — running 24/7 without staff overhead.</p>
-        <div class="service-tags">
-          <span class="service-tag">Lead Follow-up</span>
-          <span class="service-tag">Scheduling</span>
-          <span class="service-tag">Client Intake</span>
-          <span class="service-tag">Reporting</span>
+    <div class="services-tier">
+      <div class="services-tier-header reveal">
+        <span class="services-tier-title">AI Solutions</span>
+        <div class="services-tier-line"></div>
+      </div>
+      <div class="services-grid">
+        <div class="service-card reveal">
+          <div class="service-icon">🤖</div>
+          <h3>Agentic AI Deployment</h3>
+          <p>Autonomous AI agents that handle real business tasks — scheduling, lead follow-up, client intake, and report generation — running 24/7 without staff overhead.</p>
+          <div class="service-tags">
+            <span class="service-tag">Lead Follow-up</span>
+            <span class="service-tag">Scheduling</span>
+            <span class="service-tag">Client Intake</span>
+            <span class="service-tag">Reporting</span>
+          </div>
+        </div>
+        <div class="service-card reveal reveal-delay-1">
+          <div class="service-icon">🧠</div>
+          <h3>Custom AI Data Training</h3>
+          <p>We take your messy business data and turn it into a trained AI that actually knows your business — your products, your clients, your language. Not a generic chatbot.</p>
+          <div class="service-tags">
+            <span class="service-tag">Data Cleaning</span>
+            <span class="service-tag">Model Fine-tuning</span>
+            <span class="service-tag">RAG Systems</span>
+            <span class="service-tag">Knowledge Bases</span>
+          </div>
+        </div>
+        <div class="service-card reveal reveal-delay-2">
+          <div class="service-icon">🔒</div>
+          <h3>Private LLM Integration</h3>
+          <p>For healthcare, legal, and financial businesses that can't risk data leaving their walls. We deploy private, hosted AI models — HIPAA-compliant and fully isolated.</p>
+          <div class="service-tags">
+            <span class="service-tag">HIPAA-Compliant</span>
+            <span class="service-tag">Private Hosting</span>
+            <span class="service-tag">Zero Data Leakage</span>
+            <span class="service-tag">Regulated Industries</span>
+          </div>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">⚙️</div>
+          <h3>AI Workflow Automation</h3>
+          <p>Connect your existing tools — CRM, email, EHR, scheduling software — to AI-powered workflows that eliminate repetitive manual work across your team.</p>
+          <div class="service-tags">
+            <span class="service-tag">CRM Integration</span>
+            <span class="service-tag">Email Automation</span>
+            <span class="service-tag">EHR Connect</span>
+            <span class="service-tag">Zapier / n8n</span>
+          </div>
+        </div>
+        <div class="service-card reveal reveal-delay-1">
+          <div class="service-icon">📊</div>
+          <h3>AI Ops & Ongoing Support</h3>
+          <p>Monthly retainer plans — we monitor, optimize, and evolve your AI systems as your business grows. Not a one-and-done project. A long-term growth partner.</p>
+          <div class="service-tags">
+            <span class="service-tag">Monthly Retainer</span>
+            <span class="service-tag">Performance Tuning</span>
+            <span class="service-tag">Usage Reporting</span>
+            <span class="service-tag">Expansion Planning</span>
+          </div>
         </div>
       </div>
-      <div class="service-card reveal reveal-delay-1">
-        <div class="service-icon">🧠</div>
-        <h3>Custom AI Data Training</h3>
-        <p>We take your messy business data and turn it into a trained AI that actually knows your business — your products, your clients, your language. Not a generic chatbot.</p>
-        <div class="service-tags">
-          <span class="service-tag">Data Cleaning</span>
-          <span class="service-tag">Model Fine-tuning</span>
-          <span class="service-tag">RAG Systems</span>
-          <span class="service-tag">Knowledge Bases</span>
+    </div>
+    <div class="audit-cta-block reveal">
+      <div>
+        <div class="audit-cta-eyebrow"><span class="dot"></span> Free — No Commitment</div>
+        <h3>Not sure where to start?<br />Get a free audit.</h3>
+        <p>We review your workflow and tech stack, identify the highest-ROI opportunities — AI or software — and hand you a clear, jargon-free roadmap. No pitch, no obligation.</p>
+      </div>
+      <div>
+        <ul class="audit-cta-checklist">
+          <li>Workflow and bottleneck mapping</li>
+          <li>AI readiness evaluation</li>
+          <li>Software gaps and modernization opportunities</li>
+          <li>Prioritized implementation roadmap</li>
+        </ul>
+        <div class="audit-cta-actions">
+          <a href="https://cal.com/midnite-codeworks-pzscip" target="_blank" rel="noopener" class="btn btn-primary">Book Free Audit →</a>
+          <a href="mailto:midnitecodeworksllc@gmail.com" class="btn btn-outline">Email Us</a>
         </div>
       </div>
-      <div class="service-card reveal reveal-delay-2">
-        <div class="service-icon">🔒</div>
-        <h3>Private LLM Integration</h3>
-        <p>For healthcare, legal, and financial businesses that can't risk data leaving their walls. We deploy private, hosted AI models — HIPAA-compliant and fully isolated.</p>
-        <div class="service-tags">
-          <span class="service-tag">HIPAA-Compliant</span>
-          <span class="service-tag">Private Hosting</span>
-          <span class="service-tag">Zero Data Leakage</span>
-          <span class="service-tag">Regulated Industries</span>
-        </div>
+    </div>
+    <div class="services-tier dev-tier">
+      <div class="services-tier-header reveal">
+        <span class="services-tier-title">Custom Development</span>
+        <div class="services-tier-line"></div>
       </div>
-      <div class="service-card reveal reveal-delay-3">
-        <div class="service-icon">⚙️</div>
-        <h3>AI Workflow Automation</h3>
-        <p>Connect your existing tools — CRM, email, EHR, scheduling software — to AI-powered workflows that eliminate repetitive manual work across your team.</p>
-        <div class="service-tags">
-          <span class="service-tag">CRM Integration</span>
-          <span class="service-tag">Email Automation</span>
-          <span class="service-tag">EHR Connect</span>
-          <span class="service-tag">Zapier / n8n</span>
+      <div class="services-grid-2">
+        <div class="service-card reveal">
+          <div class="service-icon">🌐</div>
+          <h3>Web & Mobile Apps</h3>
+          <p>Custom web applications and mobile apps built to your spec — clean code, no unnecessary bloat, fully owned by you. From internal tools to customer-facing products.</p>
+          <div class="service-tags">
+            <span class="service-tag">Web Apps</span>
+            <span class="service-tag">Mobile</span>
+            <span class="service-tag">Internal Tools</span>
+            <span class="service-tag">React / Node</span>
+          </div>
         </div>
-      </div>
-      <div class="service-card reveal">
-        <div class="service-icon">📊</div>
-        <h3>AI Ops & Ongoing Support</h3>
-        <p>Monthly retainer plans — we monitor, optimize, and evolve your AI systems as your business grows. Not a one-and-done project. A long-term growth partner.</p>
-        <div class="service-tags">
-          <span class="service-tag">Monthly Retainer</span>
-          <span class="service-tag">Performance Tuning</span>
-          <span class="service-tag">Usage Reporting</span>
-          <span class="service-tag">Expansion Planning</span>
+        <div class="service-card reveal reveal-delay-1">
+          <div class="service-icon">⚡</div>
+          <h3>Backend Systems & APIs</h3>
+          <p>The invisible layer that makes your software actually work — databases, server logic, and APIs built for reliability, speed, and the scale your business will reach.</p>
+          <div class="service-tags">
+            <span class="service-tag">REST APIs</span>
+            <span class="service-tag">Databases</span>
+            <span class="service-tag">Scalability</span>
+            <span class="service-tag">Cloud Deploy</span>
+          </div>
         </div>
-      </div>
-      <div class="service-card reveal reveal-delay-1">
-        <div class="service-icon">🔍</div>
-        <h3>AI Readiness Assessment</h3>
-        <p>Not sure where to start? We audit your current workflow, identify the highest-ROI AI opportunities, and deliver a clear, jargon-free implementation roadmap.</p>
-        <div class="service-tags">
-          <span class="service-tag">Workflow Audit</span>
-          <span class="service-tag">ROI Analysis</span>
-          <span class="service-tag">Implementation Plan</span>
-          <span class="service-tag">Free Consultation</span>
+        <div class="service-card reveal reveal-delay-2">
+          <div class="service-icon">🔗</div>
+          <h3>Tool Integrations</h3>
+          <p>Connect your CRM, accounting, scheduling, and ecommerce tools so data flows where it needs to — without manual re-entry, copy-paste errors, or workarounds.</p>
+          <div class="service-tags">
+            <span class="service-tag">CRM</span>
+            <span class="service-tag">Webhooks</span>
+            <span class="service-tag">Zapier / n8n</span>
+            <span class="service-tag">Custom Connectors</span>
+          </div>
+        </div>
+        <div class="service-card reveal reveal-delay-3">
+          <div class="service-icon">🛠️</div>
+          <h3>Code Audits & Modernization</h3>
+          <p>Got legacy code, slow systems, or tech debt dragging you down? We audit, document, and rebuild what needs it — without disrupting what already works.</p>
+          <div class="service-tags">
+            <span class="service-tag">Legacy Code</span>
+            <span class="service-tag">Performance</span>
+            <span class="service-tag">Refactoring</span>
+            <span class="service-tag">Documentation</span>
+          </div>
         </div>
       </div>
     </div>
@@ -1681,10 +1859,10 @@
         <h4>Services</h4>
         <ul>
           <li><a href="#services">Agentic AI Deployment</a></li>
-          <li><a href="#services">Custom AI Data Training</a></li>
           <li><a href="#services">Private LLM Integration</a></li>
           <li><a href="#services">AI Workflow Automation</a></li>
-          <li><a href="#services">AI Readiness Assessment</a></li>
+          <li><a href="#services">Web & Mobile Apps</a></li>
+          <li><a href="#services">Free Technology & AI Audit</a></li>
         </ul>
       </div>
       <div class="footer-col">
